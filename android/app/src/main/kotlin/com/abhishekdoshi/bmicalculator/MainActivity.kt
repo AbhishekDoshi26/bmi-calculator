@@ -1,4 +1,4 @@
-package com.abhishek.bmicalculator
+package com.abhishekdoshi.bmicalculator
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
-
-const bottomContainerHeight = 80.0;
-const activeCardColour = Color(0xFF1D1E33);
-const inactiveCardColour = Color(0xFF111328);
-const bottomContainerColour = Color(0xFFEb1555);
+import 'constants.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -15,6 +11,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   String gender;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +20,7 @@ class _InputPageState extends State<InputPage> {
         title: Text('BMI CALCULATOR'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           //There's a column which has 3 expanded widget. These 3 expanded widget are 3 rows.
           //For 1st & 3rd Expanded widget (1st row), there are 2 expanded widget (container)
@@ -32,38 +30,34 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         gender = 'Male';
                       });
                     },
-                    child: ReusableCard(
-                      color: gender == 'Male'
-                          ? activeCardColour
-                          : inactiveCardColour,
-                      cardChild: cardChildWidget(
-                        icon: FontAwesomeIcons.mars,
-                        text: 'Male',
-                      ),
+                    color: gender == 'Male'
+                        ? activeCardColour
+                        : inactiveCardColour,
+                    cardChild: cardChildWidget(
+                      icon: FontAwesomeIcons.mars,
+                      text: 'Male',
                     ),
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    onTap: () {
+                  child: ReusableCard(
+                    onPress: () {
                       setState(() {
                         gender = 'Female';
                       });
                     },
-                    child: ReusableCard(
-                      color: gender == 'Female'
-                          ? activeCardColour
-                          : inactiveCardColour,
-                      cardChild: cardChildWidget(
-                        icon: FontAwesomeIcons.venus,
-                        text: 'Female',
-                      ),
+                    color: gender == 'Female'
+                        ? activeCardColour
+                        : inactiveCardColour,
+                    cardChild: cardChildWidget(
+                      icon: FontAwesomeIcons.venus,
+                      text: 'Female',
                     ),
                   ),
                 ),
@@ -71,9 +65,47 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: GestureDetector(
-              child: ReusableCard(
-                color: activeCardColour,
+            child: ReusableCard(
+              color: activeCardColour,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Height',
+                    style: labelStyle,
+                  ),
+                  SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    //This will make cm go subscript
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        height.toString(),
+                        style: textStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: labelStyle,
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: height.toDouble(),
+                    min: 120.0,
+                    max: 220.0,
+                    activeColor: bottomContainerColour,
+                    inactiveColor: Color(0xFF8D8E98),
+                    onChanged: (double newValue) {
+                      setState(() {
+                        height = newValue.round();
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
           ),
