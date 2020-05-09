@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import 'package:bmi_calculator/constants.dart';
 
-class cardChildWidget extends StatelessWidget {
+class IconContent extends StatelessWidget {
+  IconContent({this.icon, this.label});
+
   final IconData icon;
-  final String text;
-
-  cardChildWidget({@required this.icon, @required this.text});
+  final String label;
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,14 @@ class cardChildWidget extends StatelessWidget {
       children: <Widget>[
         Icon(
           icon,
-          size: 80,
+          size: 80.0,
         ),
         SizedBox(
           height: 15.0,
         ),
         Text(
-          text,
-          style: labelStyle,
+          label,
+          style: kLabelTextStyle,
         )
       ],
     );
